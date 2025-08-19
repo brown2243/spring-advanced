@@ -9,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderServiceV2 {
   private final HelloTraceV2 trace;
-  private final OrderRepository orderRepository;
+  private final OrderRepositoryV2 orderRepository;
 
   public void orderItem(TraceId traceId, String itemId) {
     trace.beginSync(traceId, "OrderService.orderItem()");

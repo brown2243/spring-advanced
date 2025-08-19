@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderControllerV1 {
 
-  private final OrderService orderService;
+  private final OrderServiceV1 orderService;
   private final HelloTraceV1 trace;
 
   @GetMapping("/v1/request")
