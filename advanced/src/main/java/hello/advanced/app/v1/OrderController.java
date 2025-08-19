@@ -1,0 +1,33 @@
+
+package hello.advanced.app.v1;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import hello.advanced.trace.TraceStatus;
+import hello.advanced.trace.hellotrace.HelloTraceV1;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+public class OrderController {
+
+  private final OrderService orderService;
+  private final HelloTraceV1 trace;
+
+  @GetMapping("/v1/request")
+  public String request(@RequestParam String itemId) {
+    TraceStatus status = null;
+    // 이 코드가 서비스, 레포에 다 추가되어야 함
+    try {
+      status = trace.begin("OrderController.request()");
+      orderService.orderItem(itemId);
+      trace.end(status);
+      return "ok";
+    } catch (Exception e) {
+      trace.exception(status, e);
+      throw e;
+    }
+  }
+}
