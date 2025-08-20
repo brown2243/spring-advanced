@@ -3,6 +3,7 @@ package hello.advanced.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import hello.advanced.trace.callback.TraceTemplate;
 import hello.advanced.trace.logtrace.LogTrace;
 import hello.advanced.trace.logtrace.ThreadLocalLogTrace;
 
@@ -13,5 +14,11 @@ public class LogTraceConfig {
   public LogTrace logTrace() {
     // return new FieldLogTrace();
     return new ThreadLocalLogTrace();
+  }
+
+  @Bean
+  public TraceTemplate traceTemplate() {
+    // return new FieldLogTrace();
+    return new TraceTemplate(logTrace());
   }
 }
